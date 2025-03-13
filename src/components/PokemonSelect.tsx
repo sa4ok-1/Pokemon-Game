@@ -38,14 +38,16 @@ export const PokemonSelect = ({
   }, [search, pokemonList]);
 
   const handleSelect = (pokemon: Pokemon) => {
-    if (
-      value.length < maxSelections &&
-      !value.some((p) => p.name === pokemon.name)
-    ) {
+    const isAlreadySelected = value.some((p) => p.name === pokemon.name);
+
+    if (isAlreadySelected) {
+      onChange(value.filter((p) => p.name !== pokemon.name));
+    } else if (value.length < maxSelections) {
       onChange([...value, pokemon]);
     }
+
     setSearch("");
-    setIsOpen(false);
+    setIsOpen(true);
   };
 
   const removePokemon = (pokemon: Pokemon) => {
@@ -61,6 +63,7 @@ export const PokemonSelect = ({
         <input
           type="text"
           value={search}
+          style={{ color: "black" }}
           onChange={(e) => setSearch(e.target.value)}
           onFocus={() => setIsOpen(true)}
           placeholder="Search Pokemon..."
@@ -80,10 +83,17 @@ export const PokemonSelect = ({
             <li
               key={pokemon.name}
               onClick={() => handleSelect(pokemon)}
-              className="p-2 hover:bg-gray-100 cursor-pointer"
+              className={`p-2 cursor-pointer hover:bg-gray-100 capitalize ${
+                value.some((p) => p.name === pokemon.name)
+                  ? "bg-blue-200 font-semibold"
+                  : ""
+              }`}
               style={{ color: "black" }}
             >
               {pokemon.name}
+              {value.some((p) => p.name === pokemon.name) && (
+                <span className="ml-2 text-blue-600">✔</span>
+              )}
             </li>
           ))}
         </ul>

@@ -18,7 +18,13 @@ export const FormContainer = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const onSubmit = (_data: FormData) => {
+  const onSubmit = (data: FormData) => {
+    const existingTeams = sessionStorage.getItem("savedTeams");
+    const teams = existingTeams ? JSON.parse(existingTeams) : [];
+
+    teams.push(data);
+    sessionStorage.setItem("savedTeams", JSON.stringify(teams));
+
     setIsModalOpen(true);
   };
 

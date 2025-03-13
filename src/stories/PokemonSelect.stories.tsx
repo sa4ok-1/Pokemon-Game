@@ -1,5 +1,6 @@
 import { PokemonSelect } from "../components/PokemonSelect";
 import { Meta, StoryObj } from "@storybook/react";
+import logo from "../assets/logo.svg";
 
 const meta: Meta<typeof PokemonSelect> = {
   title: "Components/PokemonSelect",
@@ -9,7 +10,7 @@ const meta: Meta<typeof PokemonSelect> = {
     docs: {
       description: {
         component:
-          "A custom select component to choose Pokémon with a filterable dropdown.",
+          "A custom select component to choose Pokemon with a filterable dropdown.",
       },
     },
   },
@@ -21,7 +22,7 @@ const meta: Meta<typeof PokemonSelect> = {
   decorators: [
     (Story) => (
       <div className="p-4">
-        <img alt="Luna Edge Logo" className="mb-4 w-32 mx-auto" />
+        <img src={logo} alt="Luna Edge Logo" className="mb-4 w-32 mx-auto" />
         <Story />
       </div>
     ),

@@ -1,56 +1,57 @@
-# Pokémon Team Builder
+# Pokemon Team Builder
 
-Pokémon Team Builder — це застосунок на React для створення команди з 4 покемонів. Ви можете вибрати покемонів зі списку, переглянути їхні зображення та створити власну команду.
+A React application that allows users to create and save Pokemon teams with their name and a selection of 4 Pokemon from the first generation. Teams are stored in sessionStorage and can be viewed on a separate page.
 
-## 🛠️ Технології
+## Features
 
-- **React** — основний фреймворк.
-- **TypeScript** — типізація компонентів та обробка даних.
-- **Axios** — отримання даних з API.
-- **TailwindCSS** — адаптивне та сучасне оформлення інтерфейсу.
-- **React Hook Form** — обробка форм з валідацією.
-- **Storybook** — документація та ізольоване тестування компонентів.
+- Create a team with first name, last name, and exactly Pokemon
+- Form validation for names
+- Searchable Pokemon selection dropdown
+- View saved teams with Pokemon sprites
+- Responsive design
+- Navigation between team creation and saved teams pages
+- Persistent storage during browser session
 
-## 🚀 Встановлення
+## Tech Stack
 
-1. Клонуйте репозиторій:
+- React
+- TypeScript
+- React Hook Form
+- Axios
+- React Router DOM
+- Tailwind CSS
+- Pokemon API
+
+## 🚀 Installation
+
+1. Clone the repository:
 
    ```bash
    git clone https://github.com/sa4ok-1/Pokemon-Game.git
    cd Pokemon-Game
    ```
 
-2. Встановіть залежності:
+2. Install dependencies:
 
    ```bash
    npm install
    ```
 
-3. Запустіть застосунок:
+3. Start the development server:
 
    ```bash
    npm run dev
    ```
 
-4. Відкрийте у браузері:
+4. The app will be available at:
    ```
    http://localhost:3000
    ```
 
-## 📝 Функціонал
-
-- Створення команди з 4 покемонів.
-- Адаптивний дизайн для різних пристроїв.
-- Вибір покемонів з випадаючого списку з пошуком.
-- Модальне вікно для відображення команди з покемонами.
-- Валідація полів форми (ім'я, прізвище).
-
 ## 📚 Storybook
 
-Для запуску Storybook використовуйте команду:
+Start story book:
 
 ```bash
 npm run storybook
 ```
-
-
