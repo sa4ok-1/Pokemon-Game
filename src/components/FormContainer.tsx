@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { PokemonSelect } from "./PokemonSelect";
 import { PokemonModal } from "./PokemonModal";
@@ -8,15 +8,21 @@ export const FormContainer = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
+    trigger,
   } = useForm<FormData>({
     defaultValues: {
       firstName: "",
       lastName: "",
       pokemonTeam: [],
     },
+    mode: "onBlur",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
 
   const onSubmit = (data: FormData) => {
     const existingTeams = sessionStorage.getItem("savedTeams");
@@ -31,7 +37,7 @@ export const FormContainer = () => {
   return (
     <div className="w-full max-w-md mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-black text-center">
-        Create your own team of Pokémon
+        Create your own team of Pokemon
       </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -55,6 +61,10 @@ export const FormContainer = () => {
               <input
                 {...field}
                 type="text"
+                onBlur={() => {
+                  field.onBlur();
+                  trigger("firstName");
+                }}
                 className="w-full border border-gray-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400"
                 style={{ color: "black" }}
                 placeholder="Enter your name..."
@@ -86,6 +96,10 @@ export const FormContainer = () => {
               <input
                 {...field}
                 type="text"
+                onBlur={() => {
+                  field.onBlur();
+                  trigger("lastName");
+                }}
                 className="w-full border border-gray-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400"
                 style={{ color: "black" }}
                 placeholder="Enter your last name..."
@@ -102,10 +116,16 @@ export const FormContainer = () => {
           control={control}
           rules={{
             validate: (value) =>
-              value.length === 4 || "You must select exactly 4 Pokémon",
+              value.length === 4 || "You must select exactly 4 Pokemon",
           }}
           render={({ field }) => (
-            <PokemonSelect value={field.value} onChange={field.onChange} />
+            <PokemonSelect
+              value={field.value}
+              onChange={(value) => {
+                field.onChange(value);
+                trigger("pokemonTeam");
+              }}
+            />
           )}
         />
         {errors.pokemonTeam && (
@@ -114,7 +134,12 @@ export const FormContainer = () => {
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-2 rounded-xl shadow-lg hover:from-blue-600 hover:to-blue-800 transition-transform transform hover:scale-105"
+          disabled={!isValid}
+          className={`w-full bg-gradient-to-r text-white py-2 rounded-xl shadow-lg transition-transform transform hover:scale-105 ${
+            isValid
+              ? "from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800"
+              : "from-gray-400 to-gray-600 cursor-not-allowed"
+          }`}
         >
           Submit Team
         </button>

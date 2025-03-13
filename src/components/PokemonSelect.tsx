@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Pokemon } from "../types/types";
@@ -18,6 +18,7 @@ export const PokemonSelect = ({
   const [filteredList, setFilteredList] = useState<Pokemon[]>([]);
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const selectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -37,17 +38,36 @@ export const PokemonSelect = ({
     setFilteredList(filtered);
   }, [search, pokemonList]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleSelect = (pokemon: Pokemon) => {
     const isAlreadySelected = value.some((p) => p.name === pokemon.name);
 
     if (isAlreadySelected) {
       onChange(value.filter((p) => p.name !== pokemon.name));
     } else if (value.length < maxSelections) {
-      onChange([...value, pokemon]);
+      const newValue = [...value, pokemon];
+      onChange(newValue);
+      if (newValue.length === maxSelections) {
+        setIsOpen(false);
+      }
     }
 
     setSearch("");
-    setIsOpen(true);
   };
 
   const removePokemon = (pokemon: Pokemon) => {
@@ -55,7 +75,11 @@ export const PokemonSelect = ({
   };
 
   return (
-    <div className="relative w-full" style={{ minHeight: "2.5rem" }}>
+    <div
+      ref={selectRef}
+      className="relative w-full"
+      style={{ minHeight: "2.5rem" }}
+    >
       <label className="block text-sm font-medium text-gray-700 mb-1">
         Select Pokemon [Max {maxSelections}]
       </label>
