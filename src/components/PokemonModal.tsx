@@ -29,10 +29,13 @@ export const PokemonModal = ({ team, isOpen, onClose }: PokemonModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-6 rounded-lg max-w-md w-full">
-        <h2 className="text-lg font-bold mb-4">Your Pokemon Team</h2>
-        <div className="grid grid-cols-2 gap-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+      <div className="bg-white p-4 sm:p-6 rounded-xl shadow-2xl w-full max-w-md">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          Your Pokemon Team
+        </h2>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
           {team.map((pokemon, index) => (
             <div key={pokemon.name} className="text-center">
               <img

@@ -55,7 +55,7 @@ export const PokemonSelect = ({
   return (
     <div className="relative w-full" style={{ minHeight: "2.5rem" }}>
       <label className="block text-sm font-medium text-gray-700 mb-1">
-        Select Your Pokemon Team (Max {maxSelections})
+        Select Pokemon [Max {maxSelections}]
       </label>
       <div className="flex items-center border border-gray-300 rounded-md p-2 w-full">
         <input
@@ -81,24 +81,28 @@ export const PokemonSelect = ({
               key={pokemon.name}
               onClick={() => handleSelect(pokemon)}
               className="p-2 hover:bg-gray-100 cursor-pointer"
+              style={{ color: "black" }}
             >
               {pokemon.name}
             </li>
           ))}
         </ul>
       )}
-      <div className="mt-2 flex flex-wrap gap-2 w-full overflow-x-auto">
+      <div
+        className="mt-2 flex flex-wrap gap-2 w-full"
+        style={{ padding: "5px" }}
+      >
         {value.map((pokemon) => (
           <div
             key={pokemon.name}
-            className="flex items-center bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded whitespace-nowrap"
+            className="flex items-center bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full shadow-md"
           >
             {pokemon.name}
             <button
               onClick={() => removePokemon(pokemon)}
-              className="ml-2 text-red-500 hover:text-red-700"
+              className="ml-2 text-red-600 hover:text-red-800"
             >
-              x
+              ×
             </button>
           </div>
         ))}

@@ -23,8 +23,11 @@ export const FormContainer = () => {
   };
 
   return (
-    <div className="min-w-[500px] max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6">Pokemon Trainer Form</h1>
+    <div className="w-full max-w-md mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-md">
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-black text-center">
+        Create your own team of Pokémon
+      </h1>
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">
@@ -46,7 +49,9 @@ export const FormContainer = () => {
               <input
                 {...field}
                 type="text"
-                className="w-full border border-gray-300 rounded-md p-2"
+                className="w-full border border-gray-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400"
+                style={{ color: "black" }}
+                placeholder="Enter your name..."
               />
             )}
           />
@@ -75,7 +80,9 @@ export const FormContainer = () => {
               <input
                 {...field}
                 type="text"
-                className="w-full border border-gray-300 rounded-md p-2"
+                className="w-full border border-gray-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400"
+                style={{ color: "black" }}
+                placeholder="Enter your last name..."
               />
             )}
           />
@@ -101,7 +108,7 @@ export const FormContainer = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-2 rounded-xl shadow-lg hover:from-blue-600 hover:to-blue-800 transition-transform transform hover:scale-105"
         >
           Submit Team
         </button>
